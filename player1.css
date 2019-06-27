@@ -1,0 +1,358 @@
+/* ==========================================================================
+   $Variables
+   ========================================================================== */
+
+/* $Fonts
+   ========================================================================== */
+$font-primary: 'Jaldi', sans-serif;
+
+$base-font-size: 16px;
+$base-scale:     1.375;
+
+/* $Colors
+   ========================================================================== */
+$green:						#04A777;
+$dark-red:					#291720;
+$gray:						#DEDFDF;
+
+$color-primary:				$green;
+$color-primary--light:		tint($green, 6%);
+$color-primary--dark:		shade($green, 10%);
+
+$color-accent:				$dark-red;
+$color-accent--light:		tint($dark-red, 6%);
+$color-accent--dark:		shade($dark-red, 10%);
+$color-accent--darker:		shade($dark-red, 20%);
+
+$color-secondary:			$gray;
+$color-secondary--light:	tint($gray, 6%);
+$color-secondary--lighter:	tint($gray, 12%);
+$color-secondary--dark:		shade($gray, 10%);
+
+$popup-text: 				#1a1b1b;
+
+
+/* $Radius
+   ========================================================================== */
+$radius: 7px;
+
+/* $Easing
+   ========================================================================== */
+
+ // easeInBack & easeOutBack
+$ease-in:		cubic-bezier(0.6, -0.28, 0.735, 0.045);
+$ease-out:		cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+
+/* ==========================================================================
+   $Mixins
+   ========================================================================== */
+@mixin active {
+
+	&:active,
+	&:focus,
+	&:hover { @content; }
+
+}
+
+
+
+/* ==========================================================================
+   $Globals
+   ========================================================================== */
+html { box-sizing: border-box; }
+
+*,
+*:before,
+*:after { box-sizing: inherit; }
+
+body {
+	background-color: $color-primary;
+	font: 18px/1.277 $font-primary;
+	color: #fff;
+}
+
+main {
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+	justify-content: center;
+	text-align: center;
+}
+
+	.wrap { max-width: 80%; }
+
+iframe { border: 0; }
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+:focus { outline-color: $color-primary; }
+
+
+
+
+/* ==========================================================================
+   $Buttons
+   ========================================================================== */
+.btn {
+	background-image: linear-gradient(to bottom, rgba(white, 0.1), rgba(white, 0));
+	border: 1px solid;
+	border-radius: $radius;
+	display: inline-block;
+	text-align: center;
+	transition: all 0.2s $ease-in;
+
+	@include active { transition: all 0.2s $ease-out; }
+
+}
+
+.btn-primary {
+	background-color: $color-accent;
+	border-color: $color-accent;
+	padding: 1em 1.5em;
+
+	@include active {
+		background-color: $color-accent--darker;
+	}
+
+}
+
+.btn-has-icon {
+
+	.icon {
+		margin-right: 0.1em;
+		opacity: 0;
+		transform: translateX(-100%);
+		transition: all 0.2s $ease-in;
+	}
+
+	.icon-text {
+		display: inline-block;
+		transform: translateX(-0.22em);
+		transition: all 0.2s $ease-in;
+	}
+
+	@include active {
+
+		.icon {
+			opacity: 1;
+			transform: translateX(0);
+			transition-timing-function: $ease-out;
+		}
+
+		.icon-text {
+			transform: translateX(0);
+			transition-timing-function: $ease-out;
+		}
+
+	}
+
+}
+
+
+
+
+/* ==========================================================================
+   $Flexible Media
+   ========================================================================== */
+.flex-media {
+	height: 0;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	position: relative;
+
+	iframe,
+	object {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+}
+
+
+
+
+/* ==========================================================================
+   $Media Object
+   ========================================================================== */
+.media,
+.media-body { overflow: hidden; }
+
+.media-left {
+
+	.media-img {
+		float: left;
+		margin-right: 0.5em;
+	}
+
+}
+
+.media-right {
+
+	.media-img {
+		float: right;
+		margin-left: 1.277em;
+	}
+
+}
+
+	.media-img img { display: block;
+		width:120px;
+		height:90px;}
+
+
+
+
+/* ==========================================================================
+   $Magnific Popup (lightbox)
+   ========================================================================== */
+.popup {
+	background-color: #fff;
+	box-shadow: 0 0 6px rgba(black, 0.6);
+	color: $popup-text;
+	max-width: 976px;
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+	width: 85%;
+}
+
+	.mfp-close {
+		color: $color-secondary;
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+/* $Interactive Stuff
+   ========================================================================== */
+
+// Setup
+.mfp-active {
+
+	&.mfp-bg {
+		opacity: 0;
+		transition: opacity 0.2s $ease-in;
+	}
+
+	.mfp-content {
+		transition: all 0.24s;
+		transform: translateY(15%);
+		opacity: 0;
+	}
+
+}
+
+// Lightbox In
+.mfp-ready {
+
+	&.mfp-bg { opacity: 0.85; }
+
+	.mfp-content {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+}
+
+// Lightbox Out
+.mfp-removing {
+
+	&.mfp-bg { opacity: 0; }
+
+	.mfp-content {
+		opacity: 0;
+		transform: translateY(15%);
+		transition-timing-function: $ease-out;
+	}
+
+}
+
+
+
+
+
+/* ==========================================================================
+   $Gallery
+   ========================================================================== */
+.gallery-items { padding: 0 0.31em; }
+
+	.gallery-title {
+		border-top: 1px solid $color-secondary;
+		border-bottom: 1px solid $color-secondary;
+		font-weight: 700;
+		overflow: hidden;
+		padding: 0.62em 1.277em;
+	}
+
+	.gallery-item {
+		padding: 0.31em 0 0.62em;
+		transition: background 0.25s;
+
+		@include active {
+			background-color: $color-secondary--lighter;
+		}
+
+	}
+
+	.gallery-item + .gallery-item { border-top: 1px solid $color-secondary; }
+
+		.gallery-item-desc {
+			font-size: 77%;
+			transition: color 0.2s $ease-out;
+
+			&:after {
+				content: 'Playing';
+				display: block;
+				font-size: 80%;
+				letter-spacing: 1px;
+				speak: none;
+				opacity: 0;
+				text-transform: uppercase;
+				transform: translateY(100%);
+				transition: all 0.2s $ease-out;
+			}
+
+		}
+
+		.active .gallery-item-desc {
+			color: $color-primary;
+			transition-timing-function: $ease-in;
+
+			&:after {
+				opacity: 1;
+				transform: translateY(0);
+				transition-timing-function: $ease-in;
+				speak: normal;
+			}
+
+		}
+
+
+@media (min-width: 925px) {
+
+	.gallery-main {
+		float: left;
+		width: 65%;
+	}
+
+	.gallery-items {
+		margin-top: 2.55em;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 35%;
+	}
+
+}
